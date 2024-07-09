@@ -1,15 +1,15 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"log"
-	"os"
+  "context"
+  "fmt"
+  "log"
+  "os"
 
-	"github.com/google/generative-ai-go/genai"
-	"google.golang.org/api/iterator"
-	"google.golang.org/api/option"
-"github.com/joho/godotenv"
+  "github.com/google/generative-ai-go/genai"
+  "google.golang.org/api/iterator"
+  "google.golang.org/api/option"
+  "github.com/joho/godotenv"
 ) 
 
 func main() {
@@ -28,9 +28,15 @@ func main() {
   defer client.Close()
 
   model := client.GenerativeModel("gemini-1.5-flash")
-  
+
+  if len(os.Args) <= 1 {
+    fmt.Println("Please provide a prompt")
+    os.Exit(1)
+  }
 
   userPrompt := os.Args[1]
+
+
   // Generate a text response
   iter := model.GenerateContentStream(ctx, genai.Text(userPrompt))
   for {
@@ -41,6 +47,6 @@ func main() {
     if err != nil {
       log.Fatal(err)
     }
-    fmt.Println(response.Candidates[0].Content)
+    fmt.Println(response.Candidates[0].Content.Parts)
   }
 }
