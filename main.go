@@ -7,9 +7,9 @@ import (
   "os"
 
   "github.com/google/generative-ai-go/genai"
+  "github.com/joho/godotenv"
   "google.golang.org/api/iterator"
   "google.golang.org/api/option"
-  "github.com/joho/godotenv"
 ) 
 
 func main() {
@@ -41,12 +41,16 @@ func main() {
   iter := model.GenerateContentStream(ctx, genai.Text(userPrompt))
   for {
     response, err := iter.Next()
+
     if err == iterator.Done{
       break
     }
+
     if err != nil {
       log.Fatal(err)
     }
-    fmt.Println(response.Candidates[0].Content.Parts)
+
+    resp := response.Candidates[0].Content.Parts
+    fmt.Println(resp)
   }
 }
