@@ -2,8 +2,10 @@ module github.com/yosp313/cli-gpt
 
 go 1.22.5
 
+
 require (
 	github.com/google/generative-ai-go v0.16.0
+	github.com/joho/godotenv v1.5.1
 	google.golang.org/api v0.186.0
 	cloud.google.com/go v0.115.0 // indirect
 	cloud.google.com/go/ai v0.8.0 // indirect

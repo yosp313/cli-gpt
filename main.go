@@ -9,13 +9,19 @@ import (
 	"github.com/google/generative-ai-go/genai"
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
+"github.com/joho/godotenv"
 ) 
 
 func main() {
 
+  err := godotenv.Load(".env")
+  if err != nil {
+    log.Fatal("Error loading .env file")
+  }
+
   ctx := context.Background()
   // Access your API key as an environment variable (see "Set up your API key" above)
-  client, err := genai.NewClient(ctx, option.WithAPIKey("AIzaSyBji5cpv-O-osEne7l9LD3ozvV_GtyxxlA"))
+  client, err := genai.NewClient(ctx, option.WithAPIKey(os.Getenv("GEMINI_API_KEY")))
   if err != nil {
     log.Fatal(err)
   }
