@@ -29,12 +29,12 @@ func main() {
 
   model := client.GenerativeModel("gemini-1.5-flash")
 
-  if len(os.Args) <= 1 {
+  if len(os.Args) <= 2 {
     fmt.Println("Please provide a prompt")
     os.Exit(1)
   }
 
-  userPrompt := os.Args[1]
+  userPrompt := "You are a helpful terminal assistant that helps the user with anything related to the terminal and bash or zsh please provide the user with a helpful and very concise response. The user prompt is: " + os.Args[1]
 
 
   // Generate a text response
