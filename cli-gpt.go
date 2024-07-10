@@ -1,14 +1,16 @@
 package main
 
 import (
-  "context"
-  "fmt"
-  "log"
-  "os"
+	"context"
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
+	"strings"
 
-  "github.com/google/generative-ai-go/genai"
-  "google.golang.org/api/iterator"
-  "google.golang.org/api/option"
+	"github.com/google/generative-ai-go/genai"
+	"google.golang.org/api/iterator"
+	"google.golang.org/api/option"
 ) 
 
 func main() {
@@ -44,7 +46,12 @@ func main() {
       log.Fatal(err)
     }
 
-    resp := response.Candidates[0].Content.Parts
-    fmt.Println(resp)
+    out, err := json.Marshal(response.Candidates[0].Content.Parts)
+    if err != nil {
+      log.Fatal(err)
+    }
+    cleanedResponse := strings.Replace(string(out), "\\n", "\n", -1)
+    fmt.Println(strings.Trim(cleanedResponse, "[]`\"\\/*"))
+
   }
 }
