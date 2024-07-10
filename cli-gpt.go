@@ -7,17 +7,11 @@ import (
   "os"
 
   "github.com/google/generative-ai-go/genai"
-  "github.com/joho/godotenv"
   "google.golang.org/api/iterator"
   "google.golang.org/api/option"
 ) 
 
 func main() {
-
-  err := godotenv.Load(".env")
-  if err != nil {
-    log.Fatal("Error loading .env file")
-  }
 
   ctx := context.Background()
   // Access your API key as an environment variable (see "Set up your API key" above)
@@ -29,7 +23,7 @@ func main() {
 
   model := client.GenerativeModel("gemini-1.5-flash")
 
-  if len(os.Args) <= 2 {
+  if len(os.Args) <= 1 {
     fmt.Println("Please provide a prompt")
     os.Exit(1)
   }
